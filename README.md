@@ -1,5 +1,9 @@
 # github-style
 
+## Customized by onejflow
+- add Tags, Categories, About on menu
+- add created datetime and updated datetime for documents
+
 ## Init hugo site
 
 ```bash
@@ -292,4 +296,3 @@ Then you can verify the site is working and use `git push --all` to push the cha
 
 ## TODO
 
-- 重写标题导航，那玩意儿引入的 JS 在控制台报错。
