@@ -1,0 +1,42 @@
+{{/*
+  /tags/, /categories/ 목록 페이지
+  (테마 기본은 태그 하나하나를 글처럼 큰 카드로 보여주고, 날짜가 붙고, 10개씩 페이지가 나뉨)
+  → 위: 태그를 알약 모양으로 모아서 글 수와 함께 (글 많은 순)
+  → 아래: 태그별로 글 제목을 한 줄씩 (최신 글 먼저)
+*/}}
+<style>
+  .term-index .topic-tag {
+    display: inline-flex; align-items: center;
+    margin: 0 6px 8px 0; padding: 2px 10px;
+    font-size: 13px; font-weight: 500; line-height: 20px; white-space: nowrap;
+    color: var(--color-topic-tag-text); background: var(--color-topic-tag-bg);
+    border-radius: 2em;
+  }
+  .term-index .topic-tag:hover { background: var(--color-topic-tag-hover-bg); text-decoration: none; }
+  .term-index .topic-tag .Counter { margin-left: 6px; }
+  .term-index .term-group { scroll-margin-top: 64px; }
+  .term-index .term-group li { gap: 16px; word-break: keep-all; }
+</style>
+<div class="term-index">
+  <div class="pt-3 pb-2 border-bottom color-border-secondary">
+    {{ range .Data.Terms.ByCount }}
+    <a class="topic-tag" href="#{{ .Page.Title | anchorize }}">{{ .Page.Title }}<span class="Counter">{{ .Count }}</span></a>
+    {{ end }}
+  </div>
+  {{ range .Data.Terms.ByCount }}
+  <div class="term-group py-3 border-bottom color-border-secondary" id="{{ .Page.Title | anchorize }}">
+    <h3 class="f4 mb-2">
+      <a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a>
+      <span class="Counter">{{ .Count }}</span>
+    </h3>
+    <ul>
+      {{ range .Pages.ByDate.Reverse }}
+      <li class="d-flex flex-justify-between py-1">
+        <a class="Link--primary" href="{{ .RelPermalink }}">{{ .Title }}</a>
+        <span class="f6 text-gray no-wrap">{{ .Date.Format "2 Jan 2006" }}</span>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+  {{ end }}
+</div>

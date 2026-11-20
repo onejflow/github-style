@@ -1,4 +1,8 @@
 {{ define "posts" }}
+{{/* /tags/, /categories/ 목록은 큰 카드 대신 태그 모음 + 태그별 글 목록 (term-index.html) */}}
+{{ if eq .Kind "taxonomy" }}
+{{ partial "term-index.html" . }}
+{{ else }}
 <div>
   <div class="position-relative">
     <div>
@@ -92,4 +96,5 @@
     </div>
   </div>
 </div>
+{{ end }}
 {{ end }}
